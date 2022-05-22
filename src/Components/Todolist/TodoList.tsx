@@ -1,12 +1,13 @@
-import React, {useState, KeyboardEvent, ChangeEvent, useCallback} from 'react';
-import TodoListHeader from "./TodoListHeader";
-import Button from "./Button";
-import {FilterValuesType, TaskType} from "./App";
-import Task from "./Task";
-import AddItemForm from "./AddItemForm";
-import {ButtonsBlock} from "./ButtonsBlock";
+import React, {useCallback, useEffect} from 'react';
+import TodoListHeader from "../TodolistHeader/TodoListHeader";
+import Task from "../Task/Task";
+import AddItemForm from "../AddItemForm/AddItemForm";
+import {ButtonsBlock} from "../ButtonsBlock/ButtonsBlock";
 import {List} from "@material-ui/core";
-import {TodolistType} from "./AppWithRedux";
+import {FilterValuesType} from "../../App";
+import {useDispatch} from "react-redux";
+import {fetchTasksThunk} from "../../store/tasks-reducer";
+import {TaskType} from "../../api/tasks-api";
 
 type TodoListPropsType = {
     todolistId:string
@@ -24,12 +25,19 @@ type TodoListPropsType = {
 
 const TodoList = React.memo( (props: TodoListPropsType) => {
 
+    const dispatch = useDispatch()
+
+    useEffect(()=> {
+        dispatch(fetchTasksThunk(props.todolistId))
+    },[])
+
+
     const getTasksForRender = () => {
         switch (props.filter) {
             case "active":
-                return props.tasks.filter(t => !t.isDone)
+                return props.tasks.filter(t => !t.completed)
             case "completed":
-                return props.tasks.filter(t => t.isDone)
+                return props.tasks.filter(t => t.completed)
             default:
                 return props.tasks
         }
@@ -50,10 +58,9 @@ const TodoList = React.memo( (props: TodoListPropsType) => {
         return (
             <Task
                 key={t.id}
-                //{...t}
                 id={t.id}
                 title={t.title}
-                isDone={t.isDone}
+                completed={t.completed}
                 removeTask={removeTask}
                 changeTaskStatus={changeTaskStatus}
                 changeTaskTitle={changeTaskTitle}

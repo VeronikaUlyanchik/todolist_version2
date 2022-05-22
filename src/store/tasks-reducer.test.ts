@@ -1,5 +1,6 @@
+import { TasksStateType } from '../App';
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './tasks-reducer';
-import {TasksStateType} from '../App';
+
 import { AddTodolistAC, RemoveTodolistAC } from './todolists-reducer';
 
 let  startState: TasksStateType;
@@ -7,14 +8,20 @@ let  startState: TasksStateType;
 beforeEach(()=> {
     startState = {
         "todolistId1": [
-            { id: "1", title: "CSS", isDone: false },
-            { id: "2", title: "JS", isDone: true },
-            { id: "3", title: "React", isDone: false }
+            { id: "1", title: "CSS", completed: false , addedDate:new Date() , deadline: new Date() , description: '',
+            order: 1 , status: 1, priority: 1, startDate: new Date(), todoListId: ''},
+            { id: "2", title: "JS", completed: true , addedDate:new Date() , deadline: new Date() , description: '',
+                order: 1 , status: 1, priority: 1, startDate: new Date(), todoListId: ''},
+            { id: "3", title: "React", completed: false, addedDate:new Date() , deadline: new Date() , description: '',
+                order: 1 , status: 1, priority: 1, startDate: new Date(), todoListId: '' }
         ],
             "todolistId2": [
-            { id: "1", title: "bread", isDone: false },
-            { id: "2", title: "milk", isDone: true },
-            { id: "3", title: "tea", isDone: false }
+            { id: "1", title: "bread", completed: false , addedDate:new Date() , deadline: new Date() , description: '',
+                order: 1 , status: 1, priority: 1, startDate: new Date(), todoListId: ''},
+            { id: "2", title: "milk", completed: true, addedDate:new Date() , deadline: new Date() , description: '',
+                order: 1 , status: 1, priority: 1, startDate: new Date(), todoListId: '' },
+            { id: "3", title: "tea", completed: false , addedDate:new Date() , deadline: new Date() , description: '',
+                order: 1 , status: 1, priority: 1, startDate: new Date(), todoListId: ''}
         ]
     };
 })
@@ -26,13 +33,13 @@ test('correct task should be deleted from correct array', () => {
 
     expect(endState).toEqual({
         "todolistId1": [
-            { id: "1", title: "CSS", isDone: false },
-            { id: "2", title: "JS", isDone: true },
-            { id: "3", title: "React", isDone: false }
+            { id: "1", title: "CSS", completed: false },
+            { id: "2", title: "JS", completed: true },
+            { id: "3", title: "React", completed: false }
         ],
         "todolistId2": [
-            { id: "1", title: "bread", isDone: false },
-            { id: "3", title: "tea", isDone: false }
+            { id: "1", title: "bread", completed: false },
+            { id: "3", title: "tea", completed: false }
         ]
     });
 
@@ -48,7 +55,7 @@ test('correct task should be added to correct array', () => {
     expect(endState["todolistId2"].length).toBe(4);
     expect(endState["todolistId2"][0].id).toBeDefined();
     expect(endState["todolistId2"][0].title).toBe('juce');
-    expect(endState["todolistId2"][0].isDone).toBe(false);
+    expect(endState["todolistId2"][0].completed).toBe(false);
 })
 
 test('status of specified task should be changed', () => {
@@ -57,8 +64,8 @@ test('status of specified task should be changed', () => {
 
     const endState = tasksReducer(startState, action)
 
-    expect(endState["todolistId2"][1].isDone).toBe(false);
-    expect(endState["todolistId1"][1].isDone).toBe(true);
+    expect(endState["todolistId2"][1].completed).toBe(false);
+    expect(endState["todolistId1"][1].completed).toBe(true);
 });
 
 test('title of specified task should be changed', () => {
@@ -74,14 +81,20 @@ test('title of specified task should be changed', () => {
 test('new array should be added when new todolist is added', () => {
     const startState: TasksStateType = {
         "todolistId1": [
-            { id: "1", title: "CSS", isDone: false },
-            { id: "2", title: "JS", isDone: true },
-            { id: "3", title: "React", isDone: false }
+            { id: "1", title: "CSS", completed: false , addedDate:new Date() , deadline: new Date() , description: '',
+                order: 1 , status: 1, priority: 1, startDate: new Date(), todoListId: ''},
+            { id: "2", title: "JS", completed: true , addedDate:new Date() , deadline: new Date() , description: '',
+                order: 1 , status: 1, priority: 1, startDate: new Date(), todoListId: ''},
+            { id: "3", title: "React", completed: false , addedDate:new Date() , deadline: new Date() , description: '',
+                order: 1 , status: 1, priority: 1, startDate: new Date(), todoListId: ''}
         ],
         "todolistId2": [
-            { id: "1", title: "bread", isDone: false },
-            { id: "2", title: "milk", isDone: true },
-            { id: "3", title: "tea", isDone: false }
+            { id: "1", title: "bread", completed: false, addedDate:new Date() , deadline: new Date() , description: '',
+                order: 1 , status: 1, priority: 1, startDate: new Date(), todoListId: '' },
+            { id: "2", title: "milk", completed: true, addedDate:new Date() , deadline: new Date() , description: '',
+                order: 1 , status: 1, priority: 1, startDate: new Date(), todoListId: '' },
+            { id: "3", title: "tea", completed: false, addedDate:new Date() , deadline: new Date() , description: '',
+                order: 1 , status: 1, priority: 1, startDate: new Date(), todoListId: '' }
         ]
     };
 

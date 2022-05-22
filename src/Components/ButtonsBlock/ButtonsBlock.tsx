@@ -1,7 +1,6 @@
 import React, {FC} from 'react';
-// import Button from "./Button";
-import {FilterValuesType} from "./App";
 import {ButtonGroup, Button} from "@material-ui/core";
+import {FilterValuesType} from "../../App";
 
 type ButtonsBlockPropsType = {
     filter: FilterValuesType
@@ -20,21 +19,6 @@ export const ButtonsBlock: FC<ButtonsBlockPropsType> = (
             >all</Button>
             <Button color={filter === 'active' ? 'secondary' : 'primary'} onClick={setFilterValue('active')}>active</Button>
             <Button color={filter === 'completed' ? 'secondary' : 'primary'} onClick={setFilterValue('completed')}>completed</Button>
-            {/*<Button*/}
-            {/*    active={filter === "all"}*/}
-            {/*    title={"All"}*/}
-            {/*    onClickHandler={setFilterValue('all')}*/}
-            {/*/>*/}
-            {/*<Button*/}
-            {/*    active={filter === "active"}*/}
-            {/*    title={"Active"}*/}
-            {/*    onClickHandler={setFilterValue('active')}*/}
-            {/*/>*/}
-            {/*<Button*/}
-            {/*    active={filter === "completed"}*/}
-            {/*    title={"Completed"}*/}
-            {/*    onClickHandler={setFilterValue('completed')}*/}
-            {/*/>*/}
         </ButtonGroup>
     );
 };

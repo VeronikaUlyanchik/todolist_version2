@@ -1,7 +1,6 @@
 import React from 'react';
-import Button from "./Button";
-import {EditableSpan} from "./EditableSpan";
-import {Delete, DeleteOutline} from "@material-ui/icons";
+import {EditableSpan} from "../EditableSpan/EditableSpan";
+import {Delete} from "@material-ui/icons";
 import {IconButton} from "@material-ui/core";
 
 type TodoListHeaderPropsType = {

@@ -1,5 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {AddBoxOutlined, Delete} from "@material-ui/icons";
+import {AddBoxOutlined} from "@material-ui/icons";
 import {IconButton, TextField} from "@material-ui/core";
 
 type AddItemFormPropsType = {

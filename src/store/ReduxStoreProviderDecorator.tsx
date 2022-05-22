@@ -8,11 +8,11 @@ import {v1} from "uuid";
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,
-    todolists: todolistsReducer
+    todoLists: todolistsReducer
 })
 
 const initialGlobalState = {
-    todolists: [
+    todoLists: [
         {id: "todolistId1", title: "What to learn", filter: "all"},
         {id: "todolistId2", title: "What to buy", filter: "all"}
     ] ,
@@ -28,7 +28,7 @@ const initialGlobalState = {
     }
 };
 
-export const storyBookStore = createStore(rootReducer, initialGlobalState as AppRootStateType);
+export const storyBookStore = createStore(rootReducer, initialGlobalState as unknown as AppRootStateType);
 
 
 export const ReduxStoreProviderDecorator = (storyFn:()=> React.ReactNode) => {

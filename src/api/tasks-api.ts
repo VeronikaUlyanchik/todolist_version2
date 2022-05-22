@@ -18,8 +18,9 @@ export const tasksAPI = {
     deleteTask(todolistId:string, taskId: string){
         return instance.delete<CommonResponseType>(`/todo-lists/${todolistId}/tasks/${taskId}`)
     },
-    updateTask(todolistId:string, taskId: string, title:string){
-        return instance.put<any, AxiosResponse<CommonResponseType>, {title:string}>(`/todo-lists/${todolistId}/tasks/${taskId}`, {title})
+    updateTask(todolistId:string, taskId: string, changes: {title?:string, completed?:boolean}){
+        return instance.put<any, AxiosResponse<CommonResponseType>, {title?:string, completed?:boolean}
+            >(`/todo-lists/${todolistId}/tasks/${taskId}`, changes)
     }
 }
 
@@ -36,19 +37,32 @@ type GetTasksResponseType={
     error:string
 }
 
-type TaskType = {
-    description: string
+export type TaskType = {
+    description?: string
     title: string
     completed: boolean
-    status: number
-    priority: number
-    startDate: Date
-    deadline: Date
+    status?: number
+    priority?: number
+    startDate?: Date
+    deadline?: Date
     id: string
-    todoListId: string
-    order: number
-    addedDate: Date
+    todoListId?: string
+    order?: number
+    addedDate?: Date
+}
+export enum TaskStatuses {
+    New = 0,
+    InProgress = 1,
+    Completed = 2,
+    Draft = 3
 }
 
+export enum TaskPriorities {
+    Low = 0,
+    Middle = 1,
+    Hi = 2,
+    Urgently = 3,
+    Later = 4
+}
 
 
